@@ -1,25 +1,29 @@
 ---
 name: reading-notes-master
 description: |
-  一图解千言的出版级可视化读书笔记生成器（Chart-First 图表驱动 v2.2）。
+  一图解千言的出版级可视化读书笔记生成器（Chart-First 图表驱动 v2.3）。
   基于 31 份精选读书笔记语料（约 2,600 页）双透镜研究：排版美学（design_metrics）+
   视觉密度（visual_metrics：逐页图像/矢量/字符实测），融合 awesome-design-md 出版级令牌 v2。
   6 大叙事原型、9 大页面模块、20 组主题色映射、10+6 类图表组件、12 类文字→图表自动映射；
   v2.1 新增情绪营销方法论库（五点情绪开关 × 五色情绪光谱 × 实证案例库）；
   v2.2 新增咨询级页面工艺库（四弧线叙事/标题纪律/页面角色/五区骨架+收束唯一/
   关系→图型选型+数据契约/反模式红线/瀑布对账/图示语义/模块填充 P-D-F-X-V/
-  容量硬网格/验收四门禁+12 问，见 references/consulting-craft.md）。
+  容量硬网格/验收四门禁+12 问，见 references/consulting-craft.md）；
+  v2.3 新增图形资产管线——原样复刻 × 从文字生成全栈工具链
+  （位图→矢量描摹 vtracer/potrace、Real-ESRGAN 4× 超分、mermaid/markmap 图表即代码、
+  clip 文本→SVG、cognigraph MCP 集成，4 个开箱即用包装脚本，见 references/graphics-toolchain.md）。
   输入一本书的要点/金句/结构，输出图表主导、少文字、出版级排版的读书笔记（HTML/PDF/PPTX/长图）。
   触发词：读书笔记、生成笔记、可视化读书笔记、一图解千言、图表化笔记、读书分享、
   书摘卡片、reading notes、读书笔记PPT、读书报告、精华笔记、营销笔记、情绪开关、
-  咨询级笔记、论证型笔记。
+  咨询级笔记、论证型笔记、图形复刻、复刻图表、位图转矢量、图片超分、
+  流程图导出、思维导图导出、图表工具链。
 metadata:
   author: wdj
-  version: 2.2.0
+  version: 2.3.0
   license: MIT-0
 ---
 
-# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.2）
+# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.3）
 
 将任何一本书的精华内容，转化为**图表主导、少文字、一图解千言**的出版级读书笔记。
 双透镜实证：排版美学来自 31 份样本的程序化实测（字体/字号/色板/结构）；
@@ -80,6 +84,22 @@ metadata:
 质感层（勿动）暖墨/耳语边框/三级柔影/圆角阶梯/暖纸 `#F7F5F2`/衬线。
 内容页每 2–3 页加一次 `.alt`；金句页自动衬线 500。护栏详见 `references/design-tokens.md`。
 
+## 图形资产管线（v2.3 新增）——任何图型/图片/图表，复刻或生成双通道
+
+笔记所需图形资产，两条路径全覆盖（工具版本/安装/踩坑详见 `references/graphics-toolchain.md`）：
+
+- **路径 A · 原样复刻**（复刻既有 PDF/PPTX 笔记的图形）：
+  PyMuPDF 分层提取 → sn-image-base VLM 看图 → `scripts/superres.sh` 4× 超分（Real-ESRGAN）→
+  `scripts/bitmap2vector.sh` 位图→矢量描摹（vtracer 彩色 / potrace 黑白）→ 组件重画。
+  位图照片先超分再描摹，质量翻倍。
+- **路径 B · 从文字生成**：
+  流程/时序/甘特 → `scripts/mermaid-export.sh`（mmdc 三格式，已绕开 -w/-H 与 Chromium 下载坑）；
+  全书结构一图流 → markmap（md→交互 HTML）；坐标轴级精确图表 → `scripts/clip-chart.sh`（.clp 文本→SVG）；
+  MCP 宿主可直连 cognigraph-mcp-server（4 工具，配置见 graphics-toolchain.md §5）。
+
+**对接五步法**：Step 3 器型清单中"流程/关系"类优先 B4 出 SVG 内嵌；Step 4 需要位图素材先 A6 超分；
+Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 ¥。
+
 ## 质量核对清单（Chart-First 出版级标准）
 
 - [ ] **图表主导页（一个器型占版面 ≥60%）占内容页 ≥60%**（对齐冠军语料下沿 73%×0.8）
@@ -105,6 +125,11 @@ metadata:
 | `references/design-system.md` | 版式/字体/字号/主题色映射/图像/页面框架件 | Step 2 定调 |
 | `references/content-framework.md` | 九大模块/八模块模板/六原型/金句工程 | Step 1、4 |
 | `references/chart-catalog.md` | 10 类组件实现+决策树+图文配比 | Step 4 |
+| `references/graphics-toolchain.md` | **v2.3 新增：图形资产管线双路径（A 复刻 7 环节/B 生成 9 环节）+ 7 工具注册表（版本/路径/SHA256）+ 安装命令 + cognigraph MCP 配置 + 10 条踩坑库** | 需要位图描摹/超分/图表即代码/MCP 时 |
+| `scripts/bitmap2vector.sh` | 位图→SVG 描摹包装器（vtracer 彩色/potrace 黑白） | 路径 A5 |
+| `scripts/superres.sh` | Real-ESRGAN 4× 超分包装器（upscayl-bin） | 路径 A6 |
+| `scripts/mermaid-export.sh` | mermaid→SVG/PNG/PDF 包装器（mmdc，复用本机 Chrome） | 路径 B4 |
+| `scripts/clip-chart.sh` | .clp 文本→SVG 图表包装器（clip 0.8.0） | 路径 B4+ |
 | `references/case-patterns.md` | 31 份语料风格档案+复用规则 | 风格参照 |
 | `templates/reading-notes-template.html` | 出版级 HTML 骨架 v2.0（12 类页面，质感令牌内置） | Step 4 |
 | `templates/output-pipelines.md` | PDF/PPTX/长图导出管线 | Step 5 |

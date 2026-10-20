@@ -1,7 +1,7 @@
 # reading-notes-master
 
 [![License: MIT-0](https://img.shields.io/badge/License-MIT--0-yellow.svg)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)](./SKILL.md)
+[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](./SKILL.md)
 [![Format](https://img.shields.io/badge/format-AgentSkill-orange.svg)](./SKILL.md)
 
 **Publication-grade visual reading-notes generator** — turn any book's key ideas into beautiful, slide-style reading notes (HTML / PDF / PPTX / long image).
@@ -21,6 +21,7 @@
 - **v2.1 emotion-marketing knowledge base** — five emotional switches (痛点 pain / 痒点 itch / 爽点 joy / 燃点 burn / 爆点 boom) × five-color emotion spectrum (wine-red / warm-orange / gold / scarlet / violet) × proven case library (Wanglaoji 200×, Meituan 3-in-1, Snow Flower replica …) × 5×4 observation matrix — in `references/emotion-marketing.md`
 - **v2.2 consulting-grade page craft** — four narrative storylines with per-page `adds` discipline / judgment-sentence title rules + strong-word list / page-role table / five-zone page skeleton with single-takeaway & density tiers / relation→chart selection table with data contracts / 13 anti-pattern red lines / waterfall reconciliation contract / diagram semantic contracts / module-fill P-D-F-X-V protocol / 16:9 capacity-first hard grid / 4-gate acceptance + 12-question page audit — distilled from consulting-report-forge v1.8.0 (Apache-2.0) and reorganized for argumentative reading-notes pages — in `references/consulting-craft.md`
 - **Export pipelines** — Chrome headless → PDF, python-pptx → PPTX, long-image, A4 variant
+- **v2.3 graphics asset pipeline** — replicate-or-generate dual track for any chart/diagram/image in your notes: Path A replication (PyMuPDF layered extraction → sn-image-base VLM vision → Real-ESRGAN 4× super-resolution via `scripts/superres.sh` → bitmap→vector tracing via `scripts/bitmap2vector.sh`, vtracer color / potrace B&W) and Path B generation (mermaid→SVG/PNG/PDF via `scripts/mermaid-export.sh`, markdown→mindmap via markmap, text→SVG charts via `scripts/clip-chart.sh`, plus cognigraph-mcp-server integration for MCP hosts — 4 tools: mindmap / relationship graph / knowledge graph); all tools version-pinned with SHA256-verified test artifacts and a 10-pitfall ops library — in `references/graphics-toolchain.md`
 
 ## Install
 
@@ -63,6 +64,12 @@ reading-notes-master/
 │   ├── case-patterns.md              # 31-corpus style archive + reuse rules
 │   └── emotion-marketing.md          # v2.1 emotion-marketing methodology library (5 switches × cases × matrix)
 │   └── consulting-craft.md           # v2.2 consulting-grade page craft (storylines × titles × data contracts × QA gates)
+│   └── graphics-toolchain.md         # v2.3 graphics asset pipeline (dual track × 7-tool registry × MCP × pitfalls)
+├── scripts/                          # v2.3 ready-to-run wrappers (auto tool discovery)
+│   ├── bitmap2vector.sh              # bitmap→SVG tracing (vtracer color / potrace B&W)
+│   ├── superres.sh                    # Real-ESRGAN 4× super-resolution (upscayl-bin)
+│   ├── mermaid-export.sh              # mermaid→SVG/PNG/PDF (reuses local Chrome, no Chromium download)
+│   └── clip-chart.sh                  # .clp text→SVG charts (asmuth/clip)
 ├── templates/
 │   ├── reading-notes-template.html   # 16:9 publication-grade HTML skeleton v2.0
 │   └── output-pipelines.md           # PDF / PPTX / long-image export commands
