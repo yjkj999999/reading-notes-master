@@ -11,7 +11,9 @@ description: |
   容量硬网格/验收四门禁+12 问，见 references/consulting-craft.md）；
   v2.3 新增图形资产管线——原样复刻 × 从文字生成全栈工具链
   （位图→矢量描摹 vtracer/potrace、Real-ESRGAN 4× 超分、mermaid/markmap 图表即代码、
-  clip 文本→SVG、cognigraph MCP 集成，4 个开箱即用包装脚本，见 references/graphics-toolchain.md）。
+  clip 文本→SVG、cognigraph MCP 集成，4 个开箱即用包装脚本，见 references/graphics-toolchain.md）；
+  v2.3.1 修正 cognigraph MCP 运行方式为 node 直跑入口（替代 npx，规避运行时装包拦截）+
+  包装脚本踩坑修正（mmdc 对临时目录 EEXIST、clip data 相对路径语义）+ 全部产物 SHA256 验证锚点。
   输入一本书的要点/金句/结构，输出图表主导、少文字、出版级排版的读书笔记（HTML/PDF/PPTX/长图）。
   触发词：读书笔记、生成笔记、可视化读书笔记、一图解千言、图表化笔记、读书分享、
   书摘卡片、reading notes、读书笔记PPT、读书报告、精华笔记、营销笔记、情绪开关、
@@ -19,11 +21,11 @@ description: |
   流程图导出、思维导图导出、图表工具链。
 metadata:
   author: wdj
-  version: 2.3.0
+  version: 2.3.1
   license: MIT-0
 ---
 
-# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.3）
+# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.3.1）
 
 将任何一本书的精华内容，转化为**图表主导、少文字、一图解千言**的出版级读书笔记。
 双透镜实证：排版美学来自 31 份样本的程序化实测（字体/字号/色板/结构）；

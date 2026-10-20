@@ -1,7 +1,7 @@
 # reading-notes-master
 
 [![License: MIT-0](https://img.shields.io/badge/License-MIT--0-yellow.svg)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](./SKILL.md)
+[![Version](https://img.shields.io/badge/version-2.3.1-blue.svg)](./SKILL.md)
 [![Format](https://img.shields.io/badge/format-AgentSkill-orange.svg)](./SKILL.md)
 
 **Publication-grade visual reading-notes generator** — turn any book's key ideas into beautiful, slide-style reading notes (HTML / PDF / PPTX / long image).
