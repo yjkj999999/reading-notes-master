@@ -1,7 +1,7 @@
 # reading-notes-master
 
 [![License: MIT-0](https://img.shields.io/badge/License-MIT--0-yellow.svg)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-2.4.0-blue.svg)](./SKILL.md)
+[![Version](https://img.shields.io/badge/version-2.5.0-blue.svg)](./SKILL.md)
 [![Format](https://img.shields.io/badge/format-AgentSkill-orange.svg)](./SKILL.md)
 
 **Publication-grade visual reading-notes generator** — turn any book's key ideas into beautiful, slide-style reading notes (HTML / PDF / PPTX / long image).
@@ -23,6 +23,7 @@
 - **Export pipelines** — Chrome headless → PDF, python-pptx → PPTX, long-image, A4 variant
 - **v2.3 graphics asset pipeline** — replicate-or-generate dual track for any chart/diagram/image in your notes: Path A replication (PyMuPDF layered extraction → sn-image-base VLM vision → Real-ESRGAN 4× super-resolution via `scripts/superres.sh` → bitmap→vector tracing via `scripts/bitmap2vector.sh`, vtracer color / potrace B&W) and Path B generation (mermaid→SVG/PNG/PDF via `scripts/mermaid-export.sh`, markdown→mindmap via markmap, text→SVG charts via `scripts/clip-chart.sh`, plus cognigraph-mcp-server integration for MCP hosts — 4 tools: mindmap / relationship graph / knowledge graph); all tools version-pinned with SHA256-verified test artifacts and a 10-pitfall ops library — in `references/graphics-toolchain.md`
 - **v2.4 design-intelligence front-loading (Step 0)** — full ingestion of four design skills (92 files / 1.5 MB) under `references/design-intelligence/`: ① **ui-ux-pro-max** BM25 search engine (67 UI styles / 161 palettes / 57 font pairings / 13 stack rulebooks / UX guidelines / chart selection / landing patterns + `--design-system` generator; pure-stdlib local CSV engine, English-keyword search) ② **ui-ux-pro-max-cn** Chinese localization rules (Chinese font stacks / color culture / WeChat mini-program specs / Element Plus·Ant Design·Vant stacks / 5 industry rules / Chinese delivery checklist) ③ **awesome-design-md** 54 real-brand DESIGN.md specs (Vercel / Stripe / Linear / Notion / Claude / Apple / BMW / SpaceX …) ④ **awesome-design** 20+ design-skill selection navigator. Tone-setting upgrades from "look up the built-in mapping table" to "search the design-intelligence library first, then decide" — see `references/design-intelligence/INDEX.md`
+- **v2.5 mental-models composition library + text-to-image spec** — full ingestion of 《万物皆模型》100 thinking models (each with one-line definition / content signal words / composition key points) organized into **10 canonical diagram families** (PY pyramid / MX matrix / CY cycle / CV curve / FL flow / CP contrast / NW network / MC mechanism / DK decision / TR tree); when note content hits a model's signal, the skill calls that model's standard diagram composition (signal → model → diagram-type three-step routing, full 101-entry signal quick-reference covering all 100 models, "diagram-content contract" QA). New text-to-image spec: five-element prompt formula (subject imagery + diagram geometry + style tokens + theme color + negative constraints), 10 family prompt templates, hard cap of ≤5 generated images per deck (cover 1 + hero ≤2 + quote background ≤2) — structured diagrams stay HTML/SVG, text-to-image only for atmosphere assets (cover / hero / quote background / section divider) — see `references/mental-models-library/INDEX.md` and `models-catalog.md`
 
 ## Install
 
@@ -48,7 +49,7 @@ Six-step workflow (v2.4 adds Step 0):
 0. **Design-intelligence front-load** — detect language/audience → run `references/design-intelligence/ui-ux-pro-max/scripts/search.py "<english query>"` → load brand DESIGN.md if specified → produce a **Design Decision Sheet** (style / palette / fonts / do's & don'ts); full routing & fallbacks in `references/design-intelligence/INDEX.md`
 1. **Pick archetype** — `references/content-framework.md` §3 decision tree
 2. **Set tone** — Design Decision Sheet first, then `references/design-system.md` §3.2 (20-palette mapping table); marketing / emotion content → `references/emotion-marketing.md` §1 five-color spectrum directly; Chinese audience → `design-intelligence/ui-ux-pro-max-cn/SKILL.md` rules
-3. **Lay out pages** — copy sections from `templates/reading-notes-template.html` (12 page types), alternate `.alt` warm-paper pages every 2–3 content pages
+3. **Lay out pages** — copy sections from `templates/reading-notes-template.html` (12 page types), alternate `.alt` warm-paper pages every 2–3 content pages; match content signals against the mental-models library (`references/mental-models-library/`) and compose the standard diagram for each hit model; plan ≤5 atmosphere assets (cover / hero / quote background / section divider) per the v2.5 text-to-image spec
 4. **Fill components** — pick charts via `references/chart-catalog.md` decision tree (cross-validate data charts with `--domain chart`)
 5. **Export** — follow `templates/output-pipelines.md`
 
@@ -73,6 +74,9 @@ reading-notes-master/
 │       ├── ui-ux-pro-max-cn/         # Chinese localization design rules (pure markdown)
 │       ├── awesome-design-md/        # 54 real-brand DESIGN.md specs
 │       └── awesome-design/           # 20+ design-skill selection navigator
+│   └── mental-models-library/        # v2.5 100 thinking models composition library (INDEX.md is the entry)
+│       ├── INDEX.md                  # four-step usage / 30 signal quick-reference / text-to-image prompt spec
+│       └── models-catalog.md         # 100 model profiles (definition/signals/family/composition) + 10 family templates
 ├── scripts/                          # v2.3 ready-to-run wrappers (auto tool discovery)
 │   ├── bitmap2vector.sh              # bitmap→SVG tracing (vtracer color / potrace B&W)
 │   ├── superres.sh                    # Real-ESRGAN 4× super-resolution (upscayl-bin)
