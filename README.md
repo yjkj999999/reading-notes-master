@@ -1,7 +1,7 @@
 # reading-notes-master
 
 [![License: MIT-0](https://img.shields.io/badge/License-MIT--0-yellow.svg)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-2.6.0-blue.svg)](./SKILL.md)
+[![Version](https://img.shields.io/badge/version-2.7.0-blue.svg)](./SKILL.md)
 [![Format](https://img.shields.io/badge/format-AgentSkill-orange.svg)](./SKILL.md)
 
 **Publication-grade visual reading-notes generator** — turn any book's key ideas into beautiful, slide-style reading notes (HTML / PDF / PPTX / long image).
@@ -25,6 +25,7 @@
 - **v2.4 design-intelligence front-loading (Step 0)** — full ingestion of four design skills (92 files / 1.5 MB) under `references/design-intelligence/`: ① **ui-ux-pro-max** BM25 search engine (67 UI styles / 161 palettes / 57 font pairings / 13 stack rulebooks / UX guidelines / chart selection / landing patterns + `--design-system` generator; pure-stdlib local CSV engine, English-keyword search) ② **ui-ux-pro-max-cn** Chinese localization rules (Chinese font stacks / color culture / WeChat mini-program specs / Element Plus·Ant Design·Vant stacks / 5 industry rules / Chinese delivery checklist) ③ **awesome-design-md** 54 real-brand DESIGN.md specs (Vercel / Stripe / Linear / Notion / Claude / Apple / BMW / SpaceX …) ④ **awesome-design** 20+ design-skill selection navigator. Tone-setting upgrades from "look up the built-in mapping table" to "search the design-intelligence library first, then decide" — see `references/design-intelligence/INDEX.md`
 - **v2.5 mental-models composition library + text-to-image spec** — full ingestion of 《万物皆模型》100 thinking models (each with one-line definition / content signal words / composition key points) organized into **10 canonical diagram families** (PY pyramid / MX matrix / CY cycle / CV curve / FL flow / CP contrast / NW network / MC mechanism / DK decision / TR tree); when note content hits a model's signal, the skill calls that model's standard diagram composition (signal → model → diagram-type three-step routing, full 101-entry signal quick-reference covering all 100 models, "diagram-content contract" QA). New text-to-image spec: five-element prompt formula (subject imagery + diagram geometry + style tokens + theme color + negative constraints), 10 family prompt templates, hard cap of ≤5 generated images per deck (cover 1 + hero ≤2 + quote background ≤2) — structured diagrams stay HTML/SVG, text-to-image only for atmosphere assets (cover / hero / quote background / section divider) — see `references/mental-models-library/INDEX.md` and `models-catalog.md`
 - **v2.6 NG portrait magazine layout** — a full **magazine-grade portrait** pipeline for photography / nature / history / biography / art books, reverse-engineered from a real 148-page wildlife photography book → 60-page published-grade delivery (0 broken images / 0 clipping / 0 squeeze, PDF+PPTX 11.1MB each): 660×960px canvas (=495×720pt = 6.875×10in), NG yellow-box palette (ink `#231F20` + yellow `#FFD201` + gold/bronze/wine/red + 3-step warm paper), serif-headline / sans-label / DIN-numeral three-font-stack, black-bar+gold-star running heads; **12 magazine page templates** (cover / black TOC / chapter divider / full-bleed photo / article page with 2-column serif body + drop cap / anatomy annotation / statgrid / field-guide entries / timeline / price bars / mindmap / black quote page); **page-map method** (finished pages = ⅓~½ of source book); **Python generator sharding** (≤20KB per fragment to survive Write truncation); **6-step build pipeline** (merge → Playwright triple validation broken-img/clipping/squeeze → @2x screenshots → PDF with `in` units → PPTX with JPEG q87 rebuild −75% size → package) with a 6-entry pitfall library — see `references/ng-magazine-layout.md` and `templates/ng-magazine/` (mag.css + build-template.py + generator-template.py)
+- **v2.7 HBR landscape magazine layout** — a full **magazine-grade landscape** pipeline for business journals / magazine anthologies / multi-theme collections, reverse-engineered from a real 88-page *Harvard Business Review 2025 Best-Of* delivery (source 12 issues / 2,291 pages → 88 pages = 46% of single-issue average, 0 overflow / 0 empty page / constant MediaBox, PDF 11.7MB + 88-page PPTX 16:9 dual acceptance): 612×756pt canvas (=8.5×10.5in US magazine trim), masthead-red `#E41824` + art-gold `#F09C18` + ink `#231F20` + cream `#F4F1EA` four-color DNA, sans+serif two-font-stack; **12 magazine page types** (full-bleed cover with 6-cell cover strip / 150pt giant-number chapter divider with vertical EN / asymmetric editorial opener 310pt photo column / full-page chart from original magazine / 100pt giant stat / two-column text / full-bleed photo feature / full-bleed quote / grouped TOC / 4×3 issue-overview grid + 3 SVG mega-chart components); **11-page fixed chapter rhythm** (divider→editorial→chart→stat→text×3→photo→quote→editorial flip→text); **Chrome headless print pipeline** (gradient scrims MUST be pre-rendered PNG — CSS linear-gradient over photos forces Chrome to rasterize photos into tiling Patterns, ×2.4 size); **PDF triple acceptance** (MediaBox constant / zero text overflow / zero empty page) + XObject content-hash dedup slimming (18.3→11.7MB, no in-page lossy recompression) + **PPTX same-source 16:9 rebuild**; 8-entry pitfall library — see `references/hbr-magazine-layout.md` and `templates/hbr-magazine/` (mag.css + generator-template.py + build-template.py + scrim/)
 
 ## Install
 
@@ -43,12 +44,12 @@ cp -r reading-notes-master ~/.workbuddy/skills/   # or ~/.openclaw/skills/
 
 ## Usage
 
-Say any trigger phrase to your agent: **读书笔记 / 生成笔记 / 可视化读书笔记 / reading notes / 读书笔记PPT / 读书报告 / 精华笔记 / 营销笔记 / 情绪开关 / marketing notes / 咨询级笔记 / consulting-grade notes / 设计系统 / 品牌风格 / 中文产品设计 / design system / brand style / 竖版笔记 / 杂志风笔记 / 国家地理风格 / magazine layout / portrait notes**, then provide the book's raw materials (key points, golden quotes, structure).
+Say any trigger phrase to your agent: **读书笔记 / 生成笔记 / 可视化读书笔记 / reading notes / 读书笔记PPT / 读书报告 / 精华笔记 / 营销笔记 / 情绪开关 / marketing notes / 咨询级笔记 / consulting-grade notes / 设计系统 / 品牌风格 / 中文产品设计 / design system / brand style / 竖版笔记 / 杂志风笔记 / 国家地理风格 / magazine layout / portrait notes / 横版杂志 / 商业杂志版式 / 哈佛商业评论风格 / HBR风 / 期刊复刻 / landscape magazine / HBR layout**, then provide the book's raw materials (key points, golden quotes, structure).
 
-Seven-step workflow (v2.4 adds Step 0, v2.6 adds Step 0.5 format routing):
+Seven-step workflow (v2.4 adds Step 0, v2.6 adds Step 0.5 format routing, v2.7 upgrades Step 0.5 to three-way routing):
 
 0. **Design-intelligence front-load** — detect language/audience → run `references/design-intelligence/ui-ux-pro-max/scripts/search.py "<english query>"` → load brand DESIGN.md if specified → produce a **Design Decision Sheet** (style / palette / fonts / do's & don'ts); full routing & fallbacks in `references/design-intelligence/INDEX.md`
-0.5. **Pick format (v2.6)** — photography / nature / history / biography books with rich imagery → **NG portrait magazine pipeline** (`references/ng-magazine-layout.md`: page map → generator sharding → build pipeline); methodology / business / data books → 16:9 slides workflow below
+0.5. **Pick format (v2.7 three-way)** — photography / nature / history / biography books with rich imagery → **NG portrait magazine pipeline** (`references/ng-magazine-layout.md`); business journals / magazine anthologies / multi-theme collections wanting an "original-issue replica / best-of" feel → **HBR landscape magazine pipeline** (`references/hbr-magazine-layout.md`: 612×756pt, 12 page types, 11-page chapter rhythm, Chrome headless build); single-thread methodology / data books for projection → 16:9 slides workflow below
 1. **Pick archetype** — `references/content-framework.md` §3 decision tree
 2. **Set tone** — Design Decision Sheet first, then `references/design-system.md` §3.2 (20-palette mapping table); marketing / emotion content → `references/emotion-marketing.md` §1 five-color spectrum directly; Chinese audience → `design-intelligence/ui-ux-pro-max-cn/SKILL.md` rules
 3. **Lay out pages** — copy sections from `templates/reading-notes-template.html` (12 page types), alternate `.alt` warm-paper pages every 2–3 content pages; match content signals against the mental-models library (`references/mental-models-library/`) and compose the standard diagram for each hit model; plan ≤5 atmosphere assets (cover / hero / quote background / section divider) per the v2.5 text-to-image spec
@@ -71,6 +72,7 @@ reading-notes-master/
 │   ├── consulting-craft.md           # v2.2 consulting-grade page craft (storylines × titles × data contracts × QA gates)
 │   ├── graphics-toolchain.md         # v2.3 graphics asset pipeline (dual track × 7-tool registry × MCP × pitfalls)
 │   ├── ng-magazine-layout.md         # v2.6 NG portrait magazine layout handbook (params / 12 page templates / page-map / generator sharding / build pipeline / pitfalls)
+│   ├── hbr-magazine-layout.md        # v2.7 HBR landscape magazine layout handbook (three-way routing / 612x756pt anchors / 12 page types / 11-page chapter rhythm / Chrome headless build / pitfalls)
 │   └── design-intelligence/          # v2.4 full ingestion of four design skills (INDEX.md is the entry)
 │       ├── INDEX.md                  # four-layer architecture / Step 0 routing / commands / fallbacks / provenance
 │       ├── ui-ux-pro-max/            # BM25 design-intelligence engine (scripts + 31 CSVs + upstream refs)
@@ -88,10 +90,15 @@ reading-notes-master/
 ├── templates/
 │   ├── reading-notes-template.html   # 16:9 publication-grade HTML skeleton v2.0
 │   ├── output-pipelines.md           # PDF / PPTX / long-image export commands
-│   └── ng-magazine/                  # v2.6 NG portrait magazine assets
-│       ├── mag.css                   # full design system (palette / 3 font stacks / 12 page components, battle-tested)
-│       ├── build-template.py         # 6-step build pipeline (validate / screenshot / PDF / PPTX / package, pitfalls fixed)
-│       └── generator-template.py     # generator skeleton (HD/FT/FOLIO + P.append, ≤20KB sharding)
+│   ├── ng-magazine/                  # v2.6 NG portrait magazine assets
+│   │   ├── mag.css                   # full design system (palette / 3 font stacks / 12 page components, battle-tested)
+│   │   ├── build-template.py         # 6-step build pipeline (validate / screenshot / PDF / PPTX / package, pitfalls fixed)
+│   │   └── generator-template.py     # generator skeleton (HD/FT/FOLIO + P.append, ≤20KB sharding)
+│   └── hbr-magazine/                 # v2.7 HBR landscape magazine assets
+│       ├── mag.css                   # full design system (masthead 4 colors / 2 font stacks / 12 page types / print rules)
+│       ├── generator-template.py     # 12 page-type builders + 3 SVG mega-charts + P.append pattern
+│       ├── build-template.py         # 6-step build (merge inline CSS / Chrome headless / triple acceptance / dedup slim / PPTX / package)
+│       └── scrim/                    # 4 pre-rendered scrim PNGs (anti-Pattern key asset) + make_scrims.py regenerator
 ├── demo/
 │   └── toyota-one-page-thinking-notes.html   # 12-page full demo (v2 tokens)
 ├── LICENSE                           # MIT-0

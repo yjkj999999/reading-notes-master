@@ -1,7 +1,7 @@
 ---
 name: reading-notes-master
 description: |
-  一图解千言的出版级可视化读书笔记生成器（Chart-First 图表驱动 v2.6）。
+  一图解千言的出版级可视化读书笔记生成器（Chart-First 图表驱动 v2.7）。
   基于 31 份精选读书笔记语料（约 2,600 页）双透镜研究：排版美学（design_metrics）+
   视觉密度（visual_metrics：逐页图像/矢量/字符实测），融合 awesome-design-md 出版级令牌 v2。
   6 大叙事原型、9 大页面模块、20 组主题色映射、10+6 类图表组件、12 类文字→图表自动映射；
@@ -33,6 +33,14 @@ description: |
   PDF→PPTX JPEG q87→打包）、6 条实测踩坑库、页数控制 1/3~1/2 法；
   摄影集/自然/历史/人物类书籍优先用竖版，方法论/商业类仍走 16:9，
   详见 references/ng-magazine-layout.md 与 templates/ng-magazine/。
+  v2.7 新增哈佛商业评论横版杂志版式（HBR Landscape Magazine Layout）——612×756pt
+  （=8.5×10.5in）美式杂志开本、刊名红 #E41824 + 橙金 #F09C18 + 墨色 #231F20 设计系统、
+  12 类杂志页型（全出血封面/150pt 巨号章隔页/非对称编辑开篇/整页大图表/100pt 巨型统计/
+  双栏文本/照片特写/全出血金句/分组目录/4×3 期号总览 + 3 个 SVG 大图表组件）、
+  每章 11 页固定节奏、Chrome headless 打印管线（渐变遮罩必须预渲染 PNG 防 Pattern 光栅化）、
+  PDF 三重验收 + XObject 去重瘦身（18.3→11.7MB）、PPTX 同源 16:9 重建、8 条实测踩坑库；
+  商业期刊/杂志文集/多主题合集优先用横版杂志，详见 references/hbr-magazine-layout.md
+  与 templates/hbr-magazine/。
   输入一本书的要点/金句/结构，输出图表主导、少文字、出版级排版的读书笔记（HTML/PDF/PPTX/长图）。
   触发词：读书笔记、生成笔记、可视化读书笔记、一图解千言、图表化笔记、读书分享、
   书摘卡片、reading notes、读书笔记PPT、读书报告、精华笔记、营销笔记、情绪开关、
@@ -41,14 +49,16 @@ description: |
   中文产品设计、UI规范检索、设计风格推荐、思维模型、模型图型、马斯洛/金字塔/SWOT、
   飞轮/复利/二八/冰山/决策树、文生图、配图生成、
   竖版笔记、杂志风笔记、杂志版式、国家地理风格、NG风、像杂志一样、
-  magazine layout、portrait notes、摄影集笔记、画册笔记。
+  magazine layout、portrait notes、摄影集笔记、画册笔记、
+  横版杂志、商业杂志版式、哈佛商业评论风格、HBR风、期刊复刻、杂志复刻、
+  landscape magazine、HBR layout、年度精选、刊物风格。
 metadata:
   author: wdj
-  version: 2.6.0
+  version: 2.7.0
   license: MIT-0
 ---
 
-# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.6.0）
+# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.7.0）
 
 将任何一本书的精华内容，转化为**图表主导、少文字、一图解千言**的出版级读书笔记。
 双透镜实证：排版美学来自 31 份样本的程序化实测（字体/字号/色板/结构）；
@@ -73,16 +83,25 @@ metadata:
    **摄影集/自然/历史/人物类** → 改走竖版：读 `references/ng-magazine-layout.md`，
    画页面地图 → 用 `templates/ng-magazine/generator-template.py` 分片生成 →
    `build-template.py` 出三格式。
+   **商业期刊/杂志文集/多主题合集** → 改走横版杂志：读 `references/hbr-magazine-layout.md`，
+   画页面地图（每章 11 页节奏）→ 用 `templates/hbr-magazine/generator-template.py` 分片生成 →
+   `build-template.py`（Chrome headless）出 PDF/PPTX。
 5. **导出**：按 `templates/output-pipelines.md` 出 PDF/PPTX/长图。
 
-## 工作流（七步法 v2.6：设计智能前置→选型→定调→转译→排页→导出，0.5 步判版式）
+## 工作流（七步法 v2.7：设计智能前置→选型→定调→转译→排页→导出，0.5 步判版式）
 
-### Step 0.5 判版式（v2.6 新增）——竖版杂志 or 16:9 幻灯片
+### Step 0.5 判版式（v2.7 升级）——16:9 幻灯片 or NG 竖版杂志 or HBR 横版杂志
 
-按 `references/ng-magazine-layout.md` §1 信号表二选一：
-**摄影集/自然/历史/人物/艺术类、图片资产充足、打印翻阅场景 → 竖版**（跳转下方
-"国家地理杂志竖版版式"章节走全套竖版管线）；方法论/商业/数据类、投屏演示 → 默认 16:9 工作流。
-两者 Step 0/1/2/3（检索/原型/定调/转译）完全共用，只有排页与导出分叉。
+三路版式决策树（Step 0/1/2/3 完全共用，只有排页与导出分叉）：
+
+| 判断信号 | 去向 |
+|---|---|
+| 摄影集/自然/历史/人物/艺术类、图片资产充足、打印翻阅 | **NG 竖版杂志**（跳转"国家地理杂志竖版版式"章节） |
+| 商业期刊/杂志文集/多主题合集、封面与图表资产交错、要"原刊复刻/年度精选"感 | **HBR 横版杂志**（跳转"哈佛商业评论横版版式"章节，612×756pt 美式开本） |
+| 单主线方法论/数据类、投屏演示 | **默认 16:9 工作流** |
+
+信号表与锚点参数见 `references/hbr-magazine-layout.md` §1（横版）与
+`references/ng-magazine-layout.md` §1（竖版）。
 
 ### Step 0 设计智能前置（v2.4 新增）——先检索，后决策
 
@@ -249,6 +268,36 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
 - **文生图竖版化**：封面/满版/章扉出 1320×1920 竖构图，prompt 加
   `portrait orientation, vertical composition, magazine full-bleed photography`。
 
+## 哈佛商业评论横版版式（v2.7 新增）——HBR Landscape Magazine Layout
+
+为商业期刊/杂志文集/多主题合集准备的**杂志级横版**管线。全部参数从 88 页
+《哈佛商业评论 2025 年度精选》实战交付逆向沉淀（原稿 12 期 2,291 页 → 88 页 = 单期均页 46%，
+0 溢出/0 空页/MediaBox 恒定，PDF 11.7MB + PPTX 88 页 16:9 双验收通过）。
+**详细手册：`references/hbr-magazine-layout.md`；资产：`templates/hbr-magazine/`
+（mag.css 设计系统 + generator-template.py 12 页型构建器 + build-template.py 流水线 + scrim/ 遮罩 PNG）。**
+
+- **版式锚点**：612×756pt 画布（=8.5×10.5in 美式杂志开本）、内容页 padding 44/60/40pt、
+  `@page { size: 8.5in 10.5in; margin: 0 }`（margin:0 是全出血前提）、folio 顶 34pt / pageno 底 24pt。
+- **设计系统**：刊名 DNA 四色——刊名红 `#E41824` + 橙金 `#F09C18` + 墨色 `#231F20` + 米色 `#F4F1EA`；
+  双字体栈——sans（GTAmerica→PingFang SC，展示/正文）+ serif（Tiempos→Georgia，导语/说明）。
+  换肤只改四色 + 字体栈。
+- **12 类页面模板**：全出血封面（刊名+年份徽章+44pt 大标题+6 连封面条）/ 150pt 巨号章隔页
+  （竖排英文）/ 非对称编辑开篇（照片 310pt + 文字栏，me-flip 翻面）/ 整页大图表（原刊图表
+  contain 全宽 + 解读框）/ 100pt 巨型统计 / 双栏大字文本 / 全出血照片特写 / 全出血金句页 /
+  分组细线目录 / 4×3 期号总览网格；另备 3 个 SVG 大图表组件（大条形/圆环/步骤带）。
+- **每章 11 页固定节奏**（实测零溢出，照抄）：章隔→编辑→大图表→统计→文本×3→照片→金句→
+  编辑(翻面)→文本。全书 = 前置 7 + N 章×11 + 后置附录；成品页数 = 原书 1/3~1/2（文集按单期均页口径）。
+- **Chrome headless 打印管线**（非 Playwright）：`--headless=new --user-data-dir=<临时>` +
+  `--print-to-pdf`，**CSS 必须内联进 full.html**；遮罩渐变必须预渲染 PNG——
+  CSS linear-gradient 叠照片会把照片光栅化进平铺 Pattern（体积 ×2.4）。
+- **验收双轨**：PDF pymupdf 三重（MediaBox 恒定/文本零溢出/零空页）+ PPTX 结构越界与
+  LibreOffice 实渲染（边缘溢出/重叠）；瘦身靠 XObject 内容哈希去重（18.3→11.7MB），不做页内有损重压缩。
+- **8 条踩坑库**：Pattern 光栅化 / 背景缺 no-repeat / full.html CSS 快照与 Chrome file:// 缓存 /
+  PPTX kicker 固定宽越界 / 总览网格 3×4 超页高 / q72 重压缩收益仅 5% / 资产路径指错目录——
+  完整对照表见手册 §8。
+- **文生图横版化**：封面/章隔/照片/金句出横构图 1600×1000，prompt 加
+  `landscape orientation, magazine full-bleed photography, editorial`；图表一律原刊提取或 SVG 重绘。
+
 ## 质量核对清单（Chart-First 出版级标准）
 
 - [ ] **图表主导页（一个器型占版面 ≥60%）占内容页 ≥60%**（对齐冠军语料下沿 73%×0.8）
@@ -270,6 +319,10 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
 - [ ] **竖版杂志管线通过**（v2.6，仅竖版交付）：页面地图先画后写、页数在原书 1/3~1/2；
       生成器每片 ≤20KB；build 三重校验 0 issue（破图/裁切/挤压）；PDF 6.875×10in 页数吻合；
       PPTX JPEG 重建；满版/章扉/金句页节奏齐备；黑条页眉页脚与 DIN 数字统一
+- [ ] **横版杂志管线通过**（v2.7，仅横版交付）：页面地图先画后写、页数在原书 1/3~1/2；
+      每章 11 页节奏且两篇编辑开篇翻面；PDF 三重验收 0 issue（MediaBox 612×756/溢出/空页）；
+      PPTX 结构 0 越界 + LibreOffice 渲染 0 溢出重叠；遮罩全部为 PNG（CSS 渐变 0 处）；
+      CSS 已内联 full.html 且渲染用全新 profile；目录页码 100% 命中；资产无跨章重复
 - [ ] 思维导图收尾 + 封底 Thank You；HTML 逐页无溢出无滚动条
 
 ## 参考文件索引
@@ -298,6 +351,11 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
 | `templates/ng-magazine/mag.css` | **v2.6 新增：NG 杂志设计系统完整 CSS**（色板/三字体栈/页面骨架/黑条页眉页脚/12 类页面组件，462 行实战版） | 竖版项目复制到 output/ 直接用 |
 | `templates/ng-magazine/build-template.py` | **v2.6 新增：六步 build 流水线模板**（合并/三重校验 JS/@2x 截图/PDF in 单位/PPTX JPEG q87/打包/方差检测，踩坑全修复） | 竖版 build 阶段 |
 | `templates/ng-magazine/generator-template.py` | **v2.6 新增：生成器骨架模板**（HD/FT/FOLIO 三函数 + P.append 模式 + ≤20KB 拆分说明） | 竖版每个片段动笔前 |
+| `references/hbr-magazine-layout.md` | **v2.7 新增：HBR 商业杂志横版版式手册——三路版式决策/612×756pt 锚点/刊名四色令牌/12 类页面 HTML 骨架/每章 11 页节奏与页面地图法(1/3~1/2)/生成器拆分/Chrome headless 六步 build/PDF 三重验收+去重瘦身/8 条踩坑库/与既有工作流对接** | **商业期刊·杂志文集·多主题合集必读（Step 0.5 判横版后第一站）** |
+| `templates/hbr-magazine/mag.css` | **v2.7 新增：HBR 杂志设计系统完整 CSS**（刊名四色/双字体栈/页面骨架/folio+pageno/12 类页型组件/打印规则，实战 88 页版） | 横版项目复制到 output/ 直接用 |
+| `templates/hbr-magazine/generator-template.py` | **v2.7 新增：12 页型构建器骨架**（封面/章隔/编辑/大图表/统计/文本/照片/金句/目录/总览 + 3 个 SVG 大图表组件 + P.append 模式 + ≤20KB 拆分说明） | 横版每个片段动笔前 |
+| `templates/hbr-magazine/build-template.py` | **v2.7 新增：六步 build 流水线模板**（合并内联 CSS→Chrome headless 渲染→三重验收→XObject 去重瘦身→PPTX 同源 16:9→打包；8 坑全修复） | 横版 build 阶段 |
+| `templates/hbr-magazine/scrim/` | **v2.7 新增：4 个遮罩 PNG（mc/md/mp/mq，各约 280B）+ make_scrims.py 再生脚本**（渐变曲线可调；防 Pattern 光栅化的关键资产） | 横版项目必备；改曲线时重跑脚本 |
 | `references/case-patterns.md` | 31 份语料风格档案+复用规则 | 风格参照 |
 | `templates/reading-notes-template.html` | 出版级 HTML 骨架 v2.0（12 类页面，质感令牌内置） | Step 4 |
 | `templates/output-pipelines.md` | PDF/PPTX/长图导出管线 | Step 5 |
@@ -329,3 +387,15 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
   片段页数与页面地图不一致时以地图为准回补/删页，禁止顺手加页。
 - **竖版图片路径 404**（v2.6）：生成器里 grep 全部 src= 校验文件存在；
   资产统一放 `assets/mag/`，禁止多目录混放。
+- **横版 PDF 体积暴涨/出现 Pattern 对象**（v2.7）：CSS linear-gradient 遮罩叠背景照片，
+  Chrome 把照片光栅化进平铺 Pattern（未压缩位图 ×2.4）→ 遮罩一律用 `scrim/` 预渲染 PNG
+  （`background-image + 100% 100% + no-repeat`）；背景类全部补 `background-repeat: no-repeat`。
+- **横版改 CSS 后渲染结果字节级不变**（v2.7）：full.html 是构建时内联 CSS 的快照
+  （改 style.css 不重跑 build_full 等于没改）+ Chrome 默认 profile 磁盘缓存 file:// 子资源
+  → 改 CSS 必须重新生成 full.html；渲染命令带 `--user-data-dir=` 全新临时目录。
+- **横版 PDF 文本溢出某几页**（v2.7）：杂志文本页内容超高 → 收紧 `.mt-text`
+  （8.2pt/1.86 双栏）、编辑页照片栏 310pt、标题 22pt；仍溢出先砍该页文字，不缩字号。
+- **横版 PPTX shape 越界**（v2.7）：kicker 固定 9in 文本框在右侧元素上冲出页面
+  → 宽度 clamp 到页宽；期号总览 3 列×4 行超页高 → 4 列×3 行（cw 2.90/chh 1.52/行距 0.14in）。
+- **横版瘦身收益低**（v2.7）：Pattern 未清之前 garbage 回收无效（被 Pattern 引用看似可达）
+  → 先清 Pattern 再做 XObject 内容哈希去重；页内 JPEG 重压缩收益仅 5%，不做。
