@@ -1,64 +1,27 @@
 ---
 name: reading-notes-master
 description: |
-  一图解千言的出版级可视化读书笔记生成器（Chart-First 图表驱动 v2.7）。
-  基于 31 份精选读书笔记语料（约 2,600 页）双透镜研究：排版美学（design_metrics）+
-  视觉密度（visual_metrics：逐页图像/矢量/字符实测），融合 awesome-design-md 出版级令牌 v2。
-  6 大叙事原型、9 大页面模块、20 组主题色映射、10+6 类图表组件、12 类文字→图表自动映射；
-  v2.1 新增情绪营销方法论库（五点情绪开关 × 五色情绪光谱 × 实证案例库）；
-  v2.2 新增咨询级页面工艺库（四弧线叙事/标题纪律/页面角色/五区骨架+收束唯一/
-  关系→图型选型+数据契约/反模式红线/瀑布对账/图示语义/模块填充 P-D-F-X-V/
-  容量硬网格/验收四门禁+12 问，见 references/consulting-craft.md）；
-  v2.3 新增图形资产管线——原样复刻 × 从文字生成全栈工具链
-  （位图→矢量描摹 vtracer/potrace、Real-ESRGAN 4× 超分、mermaid/markmap 图表即代码、
-  clip 文本→SVG、cognigraph MCP 集成，4 个开箱即用包装脚本，见 references/graphics-toolchain.md）；
-  v2.4 新增设计智能前置层（Step 0）——全量收录四大设计技能：
-  ui-ux-pro-max 检索引擎（67 风格/161 配色/57 字体搭配/13 技术栈规范 + design-system 生成器，
-  纯标准库本地 BM25，英文关键词检索）+ ui-ux-pro-max-cn 中文本土化规则
-  （中文字体栈/色彩文化/微信小程序规范/Element Plus·Ant Design 等国内栈/五大行业规则）+
-  awesome-design-md 54 个真实品牌 DESIGN.md 全量规范（Vercel/Stripe/Linear/Notion/Claude…）+
-  awesome-design 20+ 设计技能选型导航；定调从"查内置映射表"升级为"先检索设计智能库再决策"，
-  详见 references/design-intelligence/INDEX.md；
-  v2.5 新增思维模型库（构图建模层）——全量收录《万物皆模型》100 个思维模型
-  （每模型含一句话定义/内容信号词/10 大图型族构图要点），笔记内容命中模型信号即调用
-  其标准图型构图（信号→模型→图型三步路由，100 条高频信号速查）；
-  并新增文生图规范（五要素 prompt 公式 + 10 族 prompt 模板 + ≤5 张纪律），
-  器型一律 HTML/SVG 绘制、文生图只做封面/hero/金句背景/篇章氛围四类资产，
-  详见 references/mental-models-library/INDEX.md；
-  v2.6 新增国家地理杂志竖版版式（NG Portrait Magazine Layout）——660×960px 竖版开本
-  （=495×720pt=6.875×10in）、mag.css 完整设计系统（NG 黄盒色板/衬线标题+DIN 数字三字体栈/
-  黑条黄星页眉页脚）、12 类杂志页面模板（封面/黑底目录/章扉/满版摄影/文章页(双栏+首字下沉)/
-  解剖标注/大数字/图鉴条目/时间轴/价格条/思维导图/金句页）、Python 生成器分片生产模式
-  （每片 ≤20KB 防 Write 截断）、六步 build 流水线（合并→Playwright 三重校验→@2x 截图→
-  PDF→PPTX JPEG q87→打包）、6 条实测踩坑库、页数控制 1/3~1/2 法；
-  摄影集/自然/历史/人物类书籍优先用竖版，方法论/商业类仍走 16:9，
-  详见 references/ng-magazine-layout.md 与 templates/ng-magazine/。
-  v2.7 新增哈佛商业评论横版杂志版式（HBR Landscape Magazine Layout）——612×756pt
-  （=8.5×10.5in）美式杂志开本、刊名红 #E41824 + 橙金 #F09C18 + 墨色 #231F20 设计系统、
-  12 类杂志页型（全出血封面/150pt 巨号章隔页/非对称编辑开篇/整页大图表/100pt 巨型统计/
-  双栏文本/照片特写/全出血金句/分组目录/4×3 期号总览 + 3 个 SVG 大图表组件）、
-  每章 11 页固定节奏、Chrome headless 打印管线（渐变遮罩必须预渲染 PNG 防 Pattern 光栅化）、
-  PDF 三重验收 + XObject 去重瘦身（18.3→11.7MB）、PPTX 同源 16:9 重建、8 条实测踩坑库；
-  商业期刊/杂志文集/多主题合集优先用横版杂志，详见 references/hbr-magazine-layout.md
-  与 templates/hbr-magazine/。
-  输入一本书的要点/金句/结构，输出图表主导、少文字、出版级排版的读书笔记（HTML/PDF/PPTX/长图）。
-  触发词：读书笔记、生成笔记、可视化读书笔记、一图解千言、图表化笔记、读书分享、
-  书摘卡片、reading notes、读书笔记PPT、读书报告、精华笔记、营销笔记、情绪开关、
-  咨询级笔记、论证型笔记、图形复刻、复刻图表、位图转矢量、图片超分、
-  流程图导出、思维导图导出、图表工具链、设计系统、品牌风格、做得像某品牌、
-  中文产品设计、UI规范检索、设计风格推荐、思维模型、模型图型、马斯洛/金字塔/SWOT、
-  飞轮/复利/二八/冰山/决策树、文生图、配图生成、
-  竖版笔记、杂志风笔记、杂志版式、国家地理风格、NG风、像杂志一样、
-  magazine layout、portrait notes、摄影集笔记、画册笔记、
-  横版杂志、商业杂志版式、哈佛商业评论风格、HBR风、期刊复刻、杂志复刻、
-  landscape magazine、HBR layout、年度精选、刊物风格。
+  一图解千言的出版级可视化读书笔记生成器（Chart-First 图表驱动 v2.9）。
+  31 份语料双透镜实测（排版美学 + 视觉密度）；6 大叙事原型、9 大模块、10+6 类组件、
+  12 类文字→图表映射；v2.2 咨询级页面工艺、v2.3 图形资产管线、v2.4 设计智能前置检索、
+  v2.5 思维模型库+文生图、v2.6 NG 竖版杂志、v2.7 HBR 横版杂志、
+  v2.8 科研级图表体系（38 图型×11 大类/9 色板/9 期刊预设/四门验收/20 红线/figure-bridge 桥接）、
+  v2.9 全图型 4K 级输出（位图长边≥3840 且短边≥2160、矢量等效、DPI 自动反推+像素实测门禁）。
+  输入一本书的要点/金句/结构，输出图表主导、少文字、出版级排版笔记（HTML/PDF/PPTX/长图）。
+  触发词：读书笔记、生成笔记、可视化读书笔记、一图解千言、图表化笔记、读书分享、书摘卡片、
+  reading notes、读书笔记PPT、读书报告、精华笔记、营销笔记、情绪开关、咨询级笔记、论证型笔记、
+  图形复刻、复刻图表、位图转矢量、图片超分、思维导图导出、图表工具链、设计系统、品牌风格、
+  UI规范检索、思维模型、模型图型、马斯洛/金字塔/SWOT、飞轮/复利/二八/冰山/决策树、文生图、
+  竖版笔记、杂志风笔记、国家地理风格、NG风、横版杂志、HBR风、期刊复刻、年度精选、
+  科研图表、学术图表、SCI 配图、期刊合规、色盲安全、Okabe-Ito、森林图、KM 曲线、雨云图、
+  山脊图、哑铃图、复合多面板、PRISMA、误差棒、600dpi、4K 图表、4K 出图、投稿包、数据契约。
 metadata:
   author: wdj
-  version: 2.7.0
+  version: 2.9.0
   license: MIT-0
 ---
 
-# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.7.0）
+# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.9.0）
 
 将任何一本书的精华内容，转化为**图表主导、少文字、一图解千言**的出版级读书笔记。
 双透镜实证：排版美学来自 31 份样本的程序化实测（字体/字号/色板/结构）；
@@ -77,6 +40,11 @@ metadata:
    把文字转成器型清单（见"时间"画轴线、见"编号"拆卡片、见"数字"放大数、见"框架"连节点…）；
    **同时跑思维模型库信号匹配**（v2.5）：命中模型信号的，直接调用其标准图型构图
    （`references/mental-models-library/INDEX.md` 全量信号速查 / `models-catalog.md` 100 模型全表）。
+3.5 **科研图表增强 · 4K**（v2.9）：器型清单里出现可量化数据关系时，查
+   `references/academic-chart-system.md` §2 双层决策树补「科研图型」列；有真数据 →
+   `scripts/figure-bridge.py` 出真图（**默认 4K**：位图 ≥3840×2160、矢量等效；`--verify` 过 G1），
+   无真数据 → 按 §4 用 `templates/academic-charts.css` 画 HTML/SVG 器型并在图注标「示意」；
+   **所有图型图表一律 4K 级**，任何低于 4K 的位图不得发版。
 4. **取色排页**：《设计决策单》优先，其次查 `references/design-system.md` §3.2 改模板 `:root` 三变量换肤；
    按九大模块序列复制模板 section，内容页按 **图解页:hero图文页 ≈ 6:4** 配比铺器型，每 2–3 页切 `.alt`；
    氛围资产（封面/hero/金句背景/篇章）按 v2.5 文生图规范生成，**每本 ≤5 张**。
@@ -88,7 +56,7 @@ metadata:
    `build-template.py`（Chrome headless）出 PDF/PPTX。
 5. **导出**：按 `templates/output-pipelines.md` 出 PDF/PPTX/长图。
 
-## 工作流（七步法 v2.7：设计智能前置→选型→定调→转译→排页→导出，0.5 步判版式）
+## 工作流（v2.9：设计智能前置→选型→定调→转译→科研增强(4K)→排页→导出，0.5 步判版式）
 
 ### Step 0.5 判版式（v2.7 升级）——16:9 幻灯片 or NG 竖版杂志 or HBR 横版杂志
 
@@ -159,6 +127,36 @@ metadata:
   产出《模型-图型清单》（章号→模型→族）并入全书器型清单；一章可命中多个，取最强 1–2 个，
   可叠加（如 #01 机会成本 + #58 二八定律 = 取舍矩阵 + 帕累托聚焦）。
   模型图必须过"图型-内容契约"（模型定义要素齐全、节点标注 ≤12 字、遮题可读、与文字预算兼容）。
+
+### Step 3.5 科研级图表增强（v2.8 新增）——数据关系 → 真图 / 器型
+
+沿用 Step 3 的《器型清单》，新增两列：**科研图型 slug** 与 **数据契约**。判据与硬纪律见
+`references/academic-chart-system.md` §2，此处只记动作顺序：
+
+1. **判有无真数据**：书里给出可复现的数值/表格/样本 → 走真图；只有观点与比喻 → 走 HTML/SVG 器型，
+   **禁止拿示例数据伪装成原书证据**，示意必须在图注写「示意」。
+2. **跑第二层决策树**：比较/构成→bar·stacked_bar；分布→box·violin·raincloud·ridgeline；
+   两时点→paired·slope·dumbbell；趋势相关→line·scatter；矩阵→heatmap·pca；
+   集合→venn·upset；证据强弱→forest·funnel；留存→km；重点高亮→volcano；
+   逐例排序→waterfall·swimmer；一页多层结论→composite；流程→diagram·prisma。
+3. **一页只留 1 个主器型**：科研图型是该器型的「数据化实现」，不是叠第二张图；
+   数据关系与文字信号冲突时以数据关系为准，叙事标题仍用判断句。
+4. **出图**：
+   ```bash
+   python3 scripts/figure-bridge.py --check
+   python3 scripts/figure-bridge.py --type <slug> --data <ch.json> --out assets/fig/<name> \
+     --theme okabe-ito --journal nature --column double --formats pdf,png \
+     --resolution 4k --verify --alt --caption
+   ```
+   批量用 `--pipeline assets/figures.json`（桥接器逐条过校验闸门 + G1 + G5，出 `.bridge-report.json`，
+   每项带 `resolution` 实测字段）。`--resolution 4k` 为默认值，可省略；显式豁免才用 `auto`。
+5. **过五门**：G1 真实墨迹重叠（`--verify`，exit 2 必须修）→ G2 最小字号 → G3 白底/灰度可分辨
+   → G4 确定性与旁车 → **G5 4K 分辨率**（`[4K OK] W×H = X MP ≥ 3840x2160`）；任一不过不发版。
+6. **落地版式**：`templates/academic-charts.css` 提供 9 色板 / 9 期刊令牌与 `.af-*` 组件；
+   图例用预留顶部带、端点留 ≥4% pad、靠边标注内翻（§4 构造性避让三铁律）。
+
+> 依赖坑：WorkBuddy 内置 python 缺 matplotlib/scipy，桥接器自动探测系统 python；
+> 别往内置环境 pip install。CSV 会静默丢失误差棒与复杂 schema，一律 JSON。
 
 ### Step 4 排页与预算裁剪
 - 页面序列：`封面 → 书档速览 stat卡 → 作者 → [背书] → [为什么读] → 目录 → (篇章 → 内容页×n)×PART → 金句×2–3 → 思维导图 → 封底`。
@@ -298,6 +296,92 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
 - **文生图横版化**：封面/章隔/照片/金句出横构图 1600×1000，prompt 加
   `landscape orientation, magazine full-bleed photography, editorial`；图表一律原刊提取或 SVG 重绘。
 
+## 科研级图表体系（v2.8 新增）——Academic Chart System
+
+**来源双实证**：本机 `academic-figures v5.9.0`（docsor1212，MIT-0；38 规范图型、9 色板、
+9 期刊 JSON、YAML 流水线、`--verify` 像素级重叠检测、`audit_pdf.py` 字号门禁、退出码 0–6）
+＋《38种科研图表收集整理报告（样例增强版）.pptx》93 页（38 图型 × 11 大类 × 每型
+「用途/场景/要点/提示」四段式 + 34 张引擎模板样例 + 4 张真实数据样例 + 选型决策树 + 投稿规范）。
+**完整手册：`references/academic-chart-system.md`**（§1 全表 / §2 决策树 / §3 令牌 / §4 组件 /
+§5 门禁 / §6 红线 / §7 桥接 / §8 工作流对接）。
+
+### 38 图型 × 11 大类（slug 速查，逐条映射见手册 §1）
+
+| 大类 | 图型 | 笔记里最常用 |
+|---|---|---|
+| 一 比较与构成 4 | `bar` `hbar` `grouped_bar` `stacked_bar` | **排名条**（长书名/概念）、100% 堆叠带 |
+| 二 数据分布 4 | `box` `violin` `raincloud` `ridgeline` | **云+点三位一体**、阶段带×密度（分布漂移） |
+| 三 配对与变化 3 | `paired` `slope` `dumbbell` | **认知改变页**（读前 vs 读后）、差距条 |
+| 四 趋势与相关 3 | `line` `scatter` `dual_axis` | 时间线数据化、象限点坐标；双轴图慎用 |
+| 五 矩阵多变量 3 | `heatmap` `cluster_heatmap` `pca` | **一页纸表格（色阶版）** |
+| 六 集合与组学 3 | `venn` `upset` `volcano` | **概念交集图**、重点高亮散点 |
+| 七 推断与 Meta 4 | `forest` `subgroup` `funnel` `galbraith` | **证据强弱尺**（含汇总菱形） |
+| 八 生存分析 3 | `km` `cif` `rmst` | 留存阶梯线（习惯/用户留存借用） |
+| 九 预测模型 5 | `roc` `calibration` `dca` `nomogram` `rcs` | **承诺-兑现对照**、净收益决策页 |
+| 十 一致性与疗效 3 | `bland_altman` `waterfall` `swimmer` | 逐例瀑布、时间线（逐行版） |
+| 十一 组图与流程 3 | `composite` `diagram` `prisma` | **A/B/C 组图主版式**、筛选漏斗 |
+
+### 设计令牌（手册 §3 有全表）
+
+- **9 套色板**：默认 `glm`（色盲安全、白底 4.5:1）；投稿/无障碍 `okabe-ito`；
+  期刊联动 `nature`/`lancet`/`nejm`/`science`；另有 `cool` `classic` `conservative`。
+  别名 `okabe`/`colorblind`→okabe-ito、`npg`→nature、`aaas`→science。
+- **9 套期刊预设**：`nature` 89/183mm·7pt·min5pt·600dpi｜`lancet` 85/183·8·6·600｜
+  `science` 55/120·7·**5**·600｜`cell` 85/176·8·6·300｜`nejm` 89/190·8·6·300｜
+  `jama` 89/183·8·6·600｜`ieee` 89/181·8·6·600｜`cma` 80/170·8·6·600｜`cn-core` 80/170·9·6·300。
+  `--journal` **锁宽**（`--width` 被忽略）；双栏 183mm 可作 NG「图表盒」/ HBR「整页大图表」栅格基准。
+- **硬规范**：白底零容忍深色；隐藏上/右框线；网格 alpha 0.15–0.3；单图 ≤7 色；
+  编码色数 ≤ 实际组数；红绿不共现编码关键信息；对照组恒中性色、处理组恒主色（跨页一致）；
+  字号层级 轴标签 > 刻度=fs−1 > 注释 ≥6pt；误差棒 `1.5pt`/CI、参照线灰虚线；
+  中国市场约定不变（涨红跌绿、¥）。
+
+### 验收五门（手册 §5；v2.9 新增 G5 4K 门禁）
+
+| 门 | 判定 | 工具 |
+|---|---|---|
+| G1 真实墨迹重叠 | 不信任 bbox 相交；200dpi 取墨迹连通分量 → 局部 600dpi 求最小距离 >0.05pt 判分离 | `--verify`（PDF only，`exit 2` 拒收） |
+| G2 最小字号 | 默认 ≥7pt，nature/science ≥5pt，其余 ≥6pt；笔记正文 ≥14pt 不变 | `audit_pdf.py --min-size N --fail-below` |
+| G3 白底与可分辨 | 白底、≤7 色、灰度转印仍可分（否则加斜纹/明度阶/形状三重冗余） | `academic-charts.css` 打印层 |
+| G4 确定性与可复现 | 同输入→字节相同；剥离 CreationDate；期刊预设下禁用 `bbox_inches='tight'` | `--audit` / `--repro` / `--alt` / `--caption` / `.bridge-audit.json` |
+| **G5 4K 分辨率**（v2.9） | 位图**长边 ≥3840 且短边 ≥2160**（≥8.29MP）；矢量 PDF/SVG/EPS 等效；按 PNG IHDR 实测，不达标 `exit 2` | `figure-bridge.py --resolution 4k`（默认）；`[4K OK]` / `[4K FAIL]` / `.bridge-audit.json.resolution` |
+
+### 4K 级输出（v2.9 新增）——所有图型图表同一把尺
+
+- **硬标准**：位图 `max(W,H) ≥ 3840` **且** `min(W,H) ≥ 2160`；默认 600dpi 的主题（glm/okabe-ito 等）
+  实测约 4739×3227 ≈ 15.3MP，本就超 4K；**期刊锁宽才是真正的风险点**（science 单栏 55mm 仅 2.17in，
+  600dpi 只有 ~1300px 宽）。
+- **自动反推 DPI**：`dpi = max(600, ceil(3840/图宽in), ceil(2160/图高in), 显式dpi)`，上限 2000；
+  `science --column single` 实测自动提到 **1774dpi → 3841×2640 = 10.14MP 达标**。
+- **双轨**：矢量（PDF/SVG/EPS）分辨率无关，视为等效 4K；位图 PNG/TIFF 必须实测达标。
+  仅出 TIFF 时自动补一张 PNG 作像素校验代理。
+- **一次自愈**：引擎内存护栏可能把 dpi 砍半 → 实测不达标时自动 `dpi×1.6` 重渲染一次；
+  仍不达标打印 `[4K FAIL]` 并 `exit 2`，建议改 `--column double` / 去掉 `--journal` / `--resolution auto` 显式豁免。
+- **HTML/SVG 版式同样 4K**：`templates/academic-charts.css` 新增 `--af-export-w:3840px` /
+  `--af-export-h:2160px` / `--af-export-scale` 令牌；截图导出按 @2x/@4x 取 3840 长边，
+  NG 竖版按 2160×3840、HBR 横版按 3840×4560 等比；**禁止把 1280×720 的幻灯片截图冒充 4K 图表**。
+- **流水线**：JSON 流水线逐条过 G5 并把 `resolution` 实测写进 `.bridge-report.json`；
+  YAML 流水线委托引擎时无法逐条过 G1/G5，桥接器会明确告警。
+
+**构造性避让三铁律**（§4，优于事后目检）：图例/事实框用预留带而非浮动覆盖；
+SVG viewBox 四周自留 ≥4% 端点 pad 防圆点/CI 帽裁半；最右/最上 10% 区域标注自动内翻。
+
+**20 条反模式红线**（§6 全表）：白底 3D/渐变、红绿共现、>7 色、语义色跨图不一致、
+误差棒不标 SD/SE/CI、星号无可溯源检验、手编 P 值、让引擎「自动拟合」nomogram/rcs/subgroup、
+PH 不成立仍用 log-rank、有竞争事件仍报 1−KM、先排序后标注不同源索引、浮动图例碰运气、
+显式 xlim 裁掉端点、靠边标注朝外、跨数量级共享 y 轴、误以为 `--width` 生效、
+`--verify` 只加在 PNG 上、composite 嵌 diagram、PRISMA 数字不自洽、CJK 上下标字形缺失、输入未变反复重试。
+
+### 资产与触发
+
+- `templates/academic-charts.css`：9 色板 `[data-af-theme]` + 9 期刊 `[data-af-journal]` 令牌、
+  `.af-legend-band` / `.af-end-label` / `.af-panels` / `.af-panel::before` 角标 / 打印白底层。
+- `scripts/figure-bridge.py`：纯标准库；`--check` 探测引擎与系统 python；`--list types|themes|journals`；
+  单图/JSON 流水线；渲染前校验闸门（必填/等长/数值有限/PRISMA 自洽，失败 exit 3 不落盘）；
+  自动 CJK；**默认 4K**（`--resolution 4k` / `--min-long-edge` / `--max-dpi` / 自动 DPI 反推 /
+  PNG IHDR 实测 / 一次自愈）；批量出 `.bridge-report.json`（含逐图 `resolution`）。
+- 触发时机：Step 0《设计决策单》加色板与栏宽两栏 → Step 3 补科研图型列 → Step 3.5 出图过四门
+  → Step 4 composite A/B/C 排页 → Step 5 矢量优先 + 旁车随交付。
+
 ## 质量核对清单（Chart-First 出版级标准）
 
 - [ ] **图表主导页（一个器型占版面 ≥60%）占内容页 ≥60%**（对齐冠军语料下沿 73%×0.8）
@@ -323,6 +407,15 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
       每章 11 页节奏且两篇编辑开篇翻面；PDF 三重验收 0 issue（MediaBox 612×756/溢出/空页）；
       PPTX 结构 0 越界 + LibreOffice 渲染 0 溢出重叠；遮罩全部为 PNG（CSS 渐变 0 处）；
       CSS 已内联 full.html 且渲染用全新 profile；目录页码 100% 命中；资产无跨章重复
+- [ ] **科研图表层通过**（v2.8，仅有数据页）：《器型清单》含「科研图型 + 数据契约」两列；
+      一页恰 1 个主器型；无真数据的页面图注标「示意」且未用示例数据冒充原书证据
+- [ ] **科研五门通过**（v2.9）：G1 `--verify` 0 真实重叠（exit 2 已修）/ G2 最小字号达标 /
+      G3 白底 + ≤7 色 + 灰度可分辨 / G4 旁车 `alt`·`caption`·`.bridge-audit.json`·批量报告齐全 /
+      **G5 4K：每一张位图长边 ≥3840 且短边 ≥2160，日志出现 `[4K OK]`，无一 `[4K FAIL]`**
+- [ ] **全图型 4K 覆盖**（v2.9）：38 图型、11 大类、单图与流水线、期刊单/双栏、
+      矢量与位图、16:9 / NG 竖版 / HBR 横版导出全部按同一把尺；HTML/SVG 截图按 3840 长边出图
+- [ ] **令牌与避让通过**（v2.8）：色板 9 选 1 且跨图语义色一致；期刊锁宽未被 `--width` 覆盖；
+      图例用预留带、端点留 ≥4% pad、靠边标注内翻；CJK 字体与负号/上下标字形正常
 - [ ] 思维导图收尾 + 封底 Thank You；HTML 逐页无溢出无滚动条
 
 ## 参考文件索引
@@ -359,6 +452,9 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
 | `references/case-patterns.md` | 31 份语料风格档案+复用规则 | 风格参照 |
 | `templates/reading-notes-template.html` | 出版级 HTML 骨架 v2.0（12 类页面，质感令牌内置） | Step 4 |
 | `templates/output-pipelines.md` | PDF/PPTX/长图导出管线 | Step 5 |
+| `references/academic-chart-system.md` | **v2.8 新增：科研级图表体系核心手册**——38 图型×11 大类→笔记器型映射全表/双层选型决策树/9 色板 hex+9 期刊预设全表/HTML-SVG 组件规范/验收四门/20 条反模式/引擎桥接/七步工作流对接 | **任何含数据页的笔记 Step 3–5 必读** |
+| `templates/academic-charts.css` | **v2.8 新增：科研图表设计令牌 CSS**（9 色板 `[data-af-theme]` + 9 期刊 `[data-af-journal]` + `.af-legend-band`/`.af-end-label`/`.af-panels` A/B/C 角标/灰度自检/打印白底层） | Step 4 排页、Step 5 打印导出 |
+| `scripts/figure-bridge.py` | **v2.8 新增 / v2.9 升级：38 图型桥接器**（`--check`/`--list`/单图/JSON 流水线；自动探测带依赖的系统 python；渲染前数据契约闸门；自动 CJK；`--verify` 五门；**默认 4K**：DPI 反推 + PNG IHDR 实测 + 一次自愈；旁车 audit 与批量报告） | Step 3.5 出真图时 |
 
 ## 错误处理
 
@@ -399,3 +495,25 @@ Step 5 导出前统一 16:9 校验。中国市场约定：涨红跌绿、货币 
   → 宽度 clamp 到页宽；期号总览 3 列×4 行超页高 → 4 列×3 行（cw 2.90/chh 1.52/行距 0.14in）。
 - **横版瘦身收益低**（v2.7）：Pattern 未清之前 garbage 回收无效（被 Pattern 引用看似可达）
   → 先清 Pattern 再做 XObject 内容哈希去重；页内 JPEG 重压缩收益仅 5%，不做。
+- **引擎/依赖不可用**（v2.8）：先跑 `figure-bridge.py --check`；WorkBuddy 内置 python 缺
+  matplotlib/scipy/openpyxl → 桥接器自动切 `/opt/homebrew/bin/python3` 或 `/usr/bin/python3`，
+  **不要往内置环境 pip install**；引擎未安装 → 退回 §4 HTML/SVG 器型，不阻塞交付。
+- **数据契约闸门 FAIL exit 3**（v2.8）：缺必填字段/数组等长不一致/NaN·Inf/PRISMA 数字不自洽
+  → 改数据再跑，不落半成品；CSV 静默丢误差棒与复杂 schema → 一律改 JSON。
+- **`--verify` 报真实重叠 exit 2**（v2.8）：按 §6 第 10–13 条修机制（预留带/端点 pad/
+  靠边翻向/同源索引），**禁止逐图特判或改小字号蒙混**；`--verify` 只对 PDF 生效，
+  若 `--formats` 无 pdf 会静默跳过 → 出图格式必须含 pdf。
+- **误以为期刊锁宽未生效**（v2.8）：`--journal` 与 `--width` 同给时 width 被忽略（`--height` 有效）；
+  要自由尺寸就去掉 preset；期刊预设下禁用 `bbox_inches='tight'`（85mm 会被裁成 82.4mm）。
+- **中文图乱码/上下标缺字**（v2.8）：桥接器按数据文本自动加 `--cjk`；字典键里的中文也会触发；
+  `⁹/³/²` 改写 `10^9/L`；`axes.unicode_minus=False` 防负号变方块；头less 环境需装一款 CJK 字体。
+- **无真数据却想放科研图**（v2.8）：禁止用引擎模板示例数据冒充原书证据；
+  退回 `academic-charts.css` 的 HTML/SVG 器型并在图注标「示意」，或并入相邻页。
+- **位图不到 4K / `[4K FAIL]`**（v2.9）：最常见于期刊**单栏锁宽**（science 55mm=2.17in，
+  600dpi 仅 ~1300px）→ 桥接器已自动反推 DPI（该例 1774dpi）并一次自愈；仍失败则改
+  `--column double`、去掉 `--journal` 用自由尺寸，或 `--resolution auto` 显式豁免并在交付说明注明。
+  引擎内存护栏把 dpi 砍半时同理；**不要用 1280×720 幻灯片截图冒充 4K 图表**。
+- **纯矢量输出被误判不达标**（v2.9）：PDF/SVG/EPS 分辨率无关，桥接器返回 `[4K OK] vector`；
+  若需要位图交付物，必须显式加 `png`/`tiff` 到 `--formats`，否则只有矢量、无 4K 位图可验收。
+- **HTML/SVG 版式导出不足 4K**（v2.9）：截图按 `--af-export-w:3840px` 长边 + @2x/@4x 出图；
+  NG 竖版 2160×3840、HBR 横版 3840×4560 等比；导出后按 PNG IHDR 复核，不达标重截。

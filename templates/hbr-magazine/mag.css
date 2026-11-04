@@ -92,7 +92,7 @@ body {
 /* ---------- 封面 ---------- */
 .mag-cover { background-size: cover; background-position: center; background-repeat: no-repeat; color: #fff; }
 .mc-scrim { position: absolute; inset: 0;
-  background-image: url(scrim/scrim_mc.png); background-size: 100% 100%; background-repeat: no-repeat; }
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAQACAYAAADcExj1AAAA2UlEQVR42u3TMQ6EMAxFwR+UIkLcv+SqcINQUGBgqNE+7xi3dWx7Js+Si6cnOW79QoXET/6mhIQESQkJCZISEhIkJSScP0kJCedPUkLC+ZOUkHD+JCUknL+EhITzl5CQcP4SEhIfPv8KL/QkjQMokqBAkSQJChRJUF4gCQoUSVCgQJEEBYokKFAkQYEiCQoUKJKgQJEst4tXJDgYkgMHy+LAwbI4GJIDBw6G5MDBsjgYkgMHQ3LgwMGyOPhoLYuDITlwsCwOHByvZXEwJAcOlsWBg2Vx4PDgkCfUyHtCYVVt8QAAAABJRU5ErkJggg==); background-size: 100% 100%; background-repeat: no-repeat; }
 .mc-mast { position: absolute; top: 34pt; left: 40pt; right: 40pt; display: flex; justify-content: space-between; align-items: flex-start; }
 .mc-mast-l { font: 800 15pt/1.1 var(--sans); letter-spacing: .42em; }
 .mc-mast-r { font: 700 8pt/1.5 var(--sans); letter-spacing: .18em; text-align: right; opacity: .92; }
@@ -111,7 +111,7 @@ body {
 /* ---------- 章隔页：全出血 + 巨号 ---------- */
 .mag-div { background-size: cover; background-position: center; background-repeat: no-repeat; color: #fff; }
 .md-scrim { position: absolute; inset: 0;
-  background-image: url(scrim/scrim_md.png); background-size: 100% 100%; background-repeat: no-repeat; }
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAQACAYAAADcExj1AAAA30lEQVR42u3TQQqAMBADwFR6EPHp/ll/oAdhWWU8B02nZmzrfuTmWfLwzCTnqzcUfEJJJR1TSSVNT0kllXQXSiqppGMqqaTpKamkku5CSSVNT0klTc9dKKmkku5CSSVNT0klTa//MQsCM8noXlJAwHAEBCwLlICA4QgIGI6AgOEICBiOgIDhgBIQMBwBAcMREPjucAqm16EkKFCgHBMUKFCgQIECBQoUKMf0P4ACBQoUKFCgQIHyP4ACBQoUKFCgQIEC5ZigQIECBQoUKFCgQDkmKFCgQIECBQoUqP+94QInp4isIHa+sQAAAABJRU5ErkJggg==); background-size: 100% 100%; background-repeat: no-repeat; }
 .md-top { position: absolute; top: 40pt; left: 40pt; right: 40pt; display: flex; justify-content: space-between; align-items: flex-start; }
 .md-tag { font: 700 8pt/1 var(--sans); letter-spacing: .34em; padding-top: 10pt; }
 .md-num { font: 800 150pt/0.9 var(--sans); letter-spacing: -.04em; }
@@ -196,14 +196,14 @@ body {
 /* ---------- 照片特写页 ---------- */
 .mag-photo { background-size: cover; background-position: center; background-repeat: no-repeat; color: #fff; }
 .mp-scrim { position: absolute; inset: 0;
-  background-image: url(scrim/scrim_mp.png); background-size: 100% 100%; background-repeat: no-repeat; }
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAQACAYAAADcExj1AAAAz0lEQVR42u3UwQnAIBAEwFV8SLA0+2/HdBB/QWR8C7O3HFeePmY+Xs3mnfChJVlCmkJIUwhpCiFNIaQphDSFkPZB1aq2D6oWUtVCqlpIVQupaiFVrWoh7YOQ9kFI+yCkfRDSPqjaPqjaPqjaFEKaQkhTCGkf7gnZkhSEMREIhCOmSQQC4YghEAgXRpMIBMIRQyAQCEcMgUC4MAgEAuGIIRAIhDERCIQLg0AgEI4YAoFwYRAIBMIRQyAQCGMiEAgXBoFAIIyJQCAcMU0iEH8QLxOhVws70BPbAAAAAElFTkSuQmCC); background-size: 100% 100%; background-repeat: no-repeat; }
 .mp-cap { position: absolute; left: 40pt; right: 40pt; bottom: 40pt; }
 .mp-kick { display: block; font: 700 7pt/1 var(--sans); letter-spacing: .34em; color: var(--artgold); margin-bottom: 10pt; }
 .mp-txt { display: block; font: 400 8.5pt/1.75 var(--serif); opacity: .92; max-width: 420pt; }
 
 /* ---------- 金句页 ---------- */
 .mag-quote { background-size: cover; background-position: center; background-repeat: no-repeat; color: #fff; }
-.mq-scrim { position: absolute; inset: 0; background-image: url(scrim/scrim_mq.png); background-size: 100% 100%; background-repeat: no-repeat; }
+.mq-scrim { position: absolute; inset: 0; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPg4uBZAQABBQDHuynAhgAAAABJRU5ErkJggg==); background-size: 100% 100%; background-repeat: no-repeat; }
 .mq-inner { position: absolute; left: 60pt; right: 60pt; top: 50%; transform: translateY(-50%); text-align: center; }
 .mq-mark { font: 800 72pt/1 var(--serif); color: var(--red); height: 34pt; overflow: visible; }
 .mq-quote { font: 800 24pt/1.55 var(--sans); letter-spacing: .01em; margin-top: 18pt; }
