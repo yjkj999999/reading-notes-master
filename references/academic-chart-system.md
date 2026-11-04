@@ -351,15 +351,25 @@ python3 scripts/figure-bridge.py --pipeline assets/figures.yaml --verify
 - 《38种科研图表收集整理报告（样例增强版）.pptx》：93 页，38 图型 × 11 大类 × 每型「用途/场景/要点/提示」四段式，
   34 张引擎模板样例 + 4 张易方达基金 MCP 真实数据（柱状/水平条/折线/散点），600dpi PNG 约 4800×3300px。
 - 交叉校验结论：PPTX 的 38 与引擎注册表 38 一致；SKILL.md 里「37」是 v5.8 滞后口径，不采用。
-- **v2.9.0（2026-11-04）**：新增 G5 4K 分辨率门禁——所有图型图表统一 4K 级输出
+- **v2.9.1（2026-11-04）**：新增 G5 4K 分辨率门禁——所有图型图表统一 4K 级输出
   （位图长边 ≥3840 且短边 ≥2160、矢量等效、DPI 自动反推、PNG IHDR 实测、一次自愈、
   JSON 流水线逐图记录 `resolution`）；同步把 SKILL.md 的 frontmatter description 压到 ≤1024 字符，
   避免 ClawHub / ZCode 自动发现静默丢弃超长描述。
 
-## §10 v2.9 发布与同步
+## §10 v2.9.1 发布与同步
 
 - 本机主副本：`~/.workbuddy/skills/reading-notes-master/`（WorkBuddy 用户级 skill）。
-- GitHub：`git@github.com:yjkj999999/reading-notes-master.git`，tag `v2.9.0`。
-- ClawHub：slug `reading-notes-master`，owner `yjkj999999`，version `2.9.0`。
+- GitHub：`git@github.com:yjkj999999/reading-notes-master.git`，tag `v2.9.1`（`v2.9.0` 保留为历史 tag）。
+- ClawHub：slug `reading-notes-master`，owner `yjkj999999`，version `2.9.1`。
 - 三端一致性原则：SKILL.md / references / templates / scripts 同源发布；
   `dist/` 与 `.git/` 不进发布包（`.gitignore` 已排除 `dist/`）。
+- **发布踩坑（2026-11-04）**：`clawhub publish --version 2.9.0` 返回
+  `OK. Published reading-notes-master@2.9.0 (versionId)`，但服务端
+  `GET /api/v1/skills/<slug>/versions/2.9.0` 恒为 404，版本列表与 `latest` tag 仍停在 2.6.0；
+  重发同一版本被拒 `Version 2.9.0 already exists. Increment the version number and try again.`
+  —— 该版本号已被占用却未挂载公开索引，**版本号不可覆盖，只能递增**。
+  处置：本地推进 `2.9.1` 后重发，并立即做 `inspect --versions` + `install --version` 双验证。
+  排查要点：本机 `HTTP_PROXY/HTTPS_PROXY=http://127.0.0.1:<port>`，curl 默认走代理会报
+  `CONNECT tunnel failed, response 502`；用 `curl --noproxy '*'` 直连 registry 才能拿到真实响应。
+  CLI 报 `... (reset in Ns)` 是 `http.js` 把 `ratelimit-reset` 响应头附加到服务端错误后面，
+  **不等于限流导致**，要看前半段的基础错误信息。

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-figure-bridge.py — reading-notes-master v2.9.0
+figure-bridge.py — reading-notes-master v2.9.1
 把本机 academic-figures v5.9.0 的 38 种科研图型接进读书笔记版式流程。
 v2.9：所有图型图表**默认 4K 级输出**（位图长边 ≥3840px 且短边 ≥2160px；
 矢量 PDF/SVG/EPS 天然等效），渲染前自动换算 DPI、渲染后按 PNG IHDR 实测像素并硬门禁。
@@ -362,7 +362,7 @@ def write_bridge_audit(out, data, cmd, rc, formats, res=None):
             if cand.is_file():
                 produced.append({"file": str(cand), "sha256": sha256(cand), "bytes": cand.stat().st_size})
     rec = {
-        "bridge": "reading-notes-master/figure-bridge v2.9.0",
+        "bridge": "reading-notes-master/figure-bridge v2.9.1",
         "engine": "academic-figures v5.9.0",
         "input": str(Path(data).resolve()),
         "input_sha256": sha256(data),

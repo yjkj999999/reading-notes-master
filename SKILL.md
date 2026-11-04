@@ -17,11 +17,11 @@ description: |
   山脊图、哑铃图、复合多面板、PRISMA、误差棒、600dpi、4K 图表、4K 出图、投稿包、数据契约。
 metadata:
   author: wdj
-  version: 2.9.0
+  version: 2.9.1
   license: MIT-0
 ---
 
-# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.9.0）
+# 一图解千言 · 出版级读书笔记生成器（reading-notes-master v2.9.1）
 
 将任何一本书的精华内容，转化为**图表主导、少文字、一图解千言**的出版级读书笔记。
 双透镜实证：排版美学来自 31 份样本的程序化实测（字体/字号/色板/结构）；
