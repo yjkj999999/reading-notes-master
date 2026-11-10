@@ -28,10 +28,14 @@ except ImportError:
         print("FAIL: 需要 PyMuPDF (pip install pymupdf)", file=sys.stderr)
         sys.exit(2)
 
-# ---------------- 14 个复刻档案（实测值固化自 magcorpus/mags_metrics.json）----------------
+# ---------------- 16 个复刻档案（实测值固化自 magcorpus/mags_metrics.json；v2.13 增补 2 条）----------------
+# 【v2.13 认知修正】常规周刊与特辑是两条不同契约，不得混用：
+#   旧 TIME_SPECIAL 卡实测描述的是「Time Special Edition（满版特辑）」，却被当作常规周刊用，
+#   是已确认的根因错误。现保留该键向后兼容，另立 TIME_WEEKLY（常规周刊）与
+#   TIME_SPECIAL_EDITION（特辑语义别名）两条独立卡；常规周刊任务一律用 TIME_WEEKLY。
 # fonts_serif / fonts_sans: 前缀匹配列表（官方在前, 替代在后, 任一命中即过 J1）
 # sig_colors: 签名色（J2 任一命中即过）; fills 记录降级来源 degraded=True
-# margin_l/r: 文本边距比例(相对页宽); cols: 栏数; density: 拼贴流/满版流/克制流(coverage 基准)
+# margin_l/r: 文本边距比例(相对页宽); cols: 栏数; density: 拼贴流/满版流/克制流/文字主导(coverage 基准)
 PROFILES = {
     "NG": dict(name="National Geographic 主刊", page_pt=(496, 720), dpi=384,
                fonts_serif=["GrosvenorBook", "SourceSerif4", "Source Serif", "Tiempos", "Georgia"],
@@ -78,11 +82,31 @@ PROFILES = {
                   fonts_sans=["BasisGrotesque", "Basis Grotesque", "Archivo", "Inter"],
                   sig_colors=["#FF447E", "#309156"],
                   margin_l=16.3, margin_r=64.9, cols=2, density="fullbleed", cov_ref=0.98),
+    # ---- v2.13：常规周刊 vs 特辑拆为两条互不覆盖的独立契约 ----
+    # TIME_WEEKLY：Time 美国版常规周刊。74 页、每页字符中位数 3043、
+    #   图像覆盖中位数 0.35、正文 10/8.8pt、文字主导（text-led）。
+    #   J3 参数按 measure_pdf() 对原刊实测：margin_l=25.3、margin_r=45.3、
+    #   cols_est=2、cov_avg=0.471、内嵌位图有效 DPI=300。
+    #   切勿用「正文 x0 / 页宽 ≈ 5.3%」充当 margin_l：四门量的是
+    #   12 个采样页各自 median(x0) 再跨页取 median，与视觉左边距不是一回事。
+    "TIME_WEEKLY": dict(name="Time 美国版常规周刊", page_pt=(567.03, 756.0), dpi=300,
+                        fonts_serif=["HaffnerTIME", "HaffnerTIMEDisplay"],
+                        fonts_sans=["ITCFranklinGothicStd", "FranklinGothic"],
+                        sig_colors=["#231F20", "#000000", "#ED1C24", "#FFFFFF"], sig_degraded=False,
+                        margin_l=25.3, margin_r=45.3, cols=2, density="text-led", cov_ref=0.471),
+    # TIME_SPECIAL：保留原键与取值向后兼容。注意——本卡实际描述的是「Time 特辑（满版降级卡）」，
+    #   不适用于常规周刊（常规周刊请用 TIME_WEEKLY）；仅用于满版特辑的旧调用。
     "TIME_SPECIAL": dict(name="Time 特辑（满版降级卡）", page_pt=(576, 783), dpi=353,
                          fonts_serif=["HaffnerTIME", "Haffner", "Playfair", "Georgia"],
                          fonts_sans=["ITCFranklinGothic", "FranklinGothic", "Franklin Gothic", "Archivo"],
                          sig_colors=[], sig_degraded=True,
                          margin_l=28.3, margin_r=11.4, cols=3, density="fullbleed", cov_ref=1.0),
+    # TIME_SPECIAL_EDITION：TIME_SPECIAL 的语义别名（同参数），供新代码按语义取名。
+    "TIME_SPECIAL_EDITION": dict(name="Time Special Edition（满版特辑）", page_pt=(576, 783), dpi=353,
+                                 fonts_serif=["HaffnerTIME", "Haffner", "Playfair", "Georgia"],
+                                 fonts_sans=["ITCFranklinGothic", "FranklinGothic", "Franklin Gothic", "Archivo"],
+                                 sig_colors=[], sig_degraded=True,
+                                 margin_l=28.3, margin_r=11.4, cols=3, density="fullbleed", cov_ref=1.0),
     "SPECTATOR": dict(name="The Spectator", page_pt=(596, 784), dpi=353,
                       fonts_serif=["TimesNewRoman", "Times New Roman", "GoudyOldSty", "Goudy", "Times"],
                       fonts_sans=["FuturaPT", "Futura", "Jost", "CenturyGothic"],
@@ -105,7 +129,8 @@ PROFILES = {
 }
 
 DENSITY_TOL = {"collage": (5, None), "fullbleed": (0.90, 1.6), "restraint": (None, 0.60),
-               "balance": (0.30, 0.90), "photo": (0.60, 1.15)}  # cov 区间下/上限 (None=不设)
+               "balance": (0.30, 0.90), "photo": (0.60, 1.15),
+               "text-led": (None, 0.60)}  # cov 区间下/上限 (None=不设); text-led 为 v2.13 TIME_WEEKLY 新增分型(文字主导/低图像覆盖), 避免 J3 查表 KeyError
 
 # ---------------- 度量（与 analyze_mags.py 同参数）----------------
 def clean_font(n):
